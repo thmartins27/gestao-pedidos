@@ -6,6 +6,7 @@ public class Pedido
 {
     public int Id { get; set; }
     public int ClienteId { get; set; }
+    public Cliente Cliente { get; private set; } = null!;
     public DateTime DataPedido { get; private set; }
     public StatusPedido Status { get; private set; }
     public decimal ValorTotal { get; private set; }

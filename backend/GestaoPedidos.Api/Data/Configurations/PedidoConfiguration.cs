@@ -29,7 +29,7 @@ public class PedidoConfiguration : IEntityTypeConfiguration<Pedido>
             .HasField("_itens")
             .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-        builder.HasOne<Cliente>()
+        builder.HasOne(p => p.Cliente)     // ← agora referencia a navegação
             .WithMany()
             .HasForeignKey(p => p.ClienteId);
 
