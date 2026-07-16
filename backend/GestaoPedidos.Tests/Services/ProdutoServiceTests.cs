@@ -77,21 +77,28 @@ public class ProdutoServiceTests
     [Fact]
     public async Task ObterTodosAsync_RetornaTodosMapeadosParaDto()
     {
-        var produtos = new List<Produto>
+        var produtos = new PagedResult<Produto>
         {
-            new("Teclado", 150m, 30) {Id = 1},
-            new("Mouse", 80m, 50) {Id = 2}
+            Items =
+            [
+                new("Teclado", 150m, 30) {Id = 1},
+                new("Mouse", 80m, 50) {Id = 2}
+            ],
+            Page = 1,
+            PageSize = 10,
+            TotalItems = 2
         };
 
         _repositoryMock
-            .Setup(r => r.ObterTodosAsync(It.IsAny<CancellationToken>()))
+            .Setup(r => r.ObterTodosAsync(1, 10, It.IsAny<CancellationToken>()))
             .ReturnsAsync(produtos);
 
-        var resultado = await _service.ObterTodosAsync(TestContext.Current.CancellationToken);
+        var resultado = await _service.ObterTodosAsync(1, 10, TestContext.Current.CancellationToken);
 
-        Assert.Equal(2, resultado.Count);
-        Assert.Equal("Teclado", resultado[0].Nome);
-        Assert.Equal("Mouse", resultado[1].Nome);
+        Assert.Equal(2, resultado.Items.Count);
+        Assert.Equal("Teclado", resultado.Items[0].Nome);
+        Assert.Equal("Mouse", resultado.Items[1].Nome);
+        Assert.Equal(2, resultado.TotalItems);
     }
 
     [Fact]

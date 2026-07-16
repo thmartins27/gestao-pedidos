@@ -1,4 +1,5 @@
 using GestaoPedidos.Api.DTOs.Produtos;
+using GestaoPedidos.Api.Models;
 using GestaoPedidos.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,14 +17,23 @@ public class ProdutoController : ControllerBase
     }
 
     /// <summary>
-    /// Lista todos os produtos cadastrados.
+    /// Lista todos os produtos cadastrados de forma paginada.
     /// </summary>
+    /// <param name="page"></param>
+    /// <param name="pageSize"></param>
     /// <param name="ct"></param>
     [HttpGet]
-    public async Task<ActionResult<List<ProdutoDto>>> ObterTodos(CancellationToken ct = default)
+    public async Task<ActionResult<PagedResult<ProdutoDto>>> ObterTodos(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10,
+        CancellationToken ct = default
+    )
     {
-        var produtos = await _service.ObterTodosAsync(ct);
-        return Ok(produtos);
+        page = page < 1 ? 1 : page;
+        pageSize = pageSize is < 1 or > 100 ? 10 : pageSize;
+
+        var resultado = await _service.ObterTodosAsync(page, pageSize, ct);
+        return Ok(resultado);
     }
 
 

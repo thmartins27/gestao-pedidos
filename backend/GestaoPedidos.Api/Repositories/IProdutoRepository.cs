@@ -4,7 +4,7 @@ namespace GestaoPedidos.Api.Repositories;
 
 public interface IProdutoRepository
 {
-    Task<List<Produto>> ObterTodosAsync(CancellationToken ct = default);
+    Task<PagedResult<Produto>> ObterTodosAsync(int page, int pageSize, CancellationToken ct = default);
     Task<Produto?> ObterPorIdAsync(int id, CancellationToken ct = default);
     Task AdicionarAsync(Produto produto, CancellationToken ct = default);
 
