@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using GestaoPedidos.Api.Extensions;
 using GestaoPedidos.Api.Middlewares;
 using Serilog;
+using Scalar.AspNetCore;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -63,6 +64,16 @@ try
     if (app.Environment.IsDevelopment())
     {
         app.MapOpenApi();
+
+        //Swagger UI
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/openapi/v1.json", "GestaoPedidos API v1");
+            options.RoutePrefix = "swagger";
+        });
+
+        // scalar
+        app.MapScalarApiReference();
     }
 
     app.UseHttpsRedirection();

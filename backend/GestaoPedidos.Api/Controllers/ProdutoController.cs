@@ -15,6 +15,10 @@ public class ProdutoController : ControllerBase
         _service = service;
     }
 
+    /// <summary>
+    /// Lista todos os produtos cadastrados.
+    /// </summary>
+    /// <param name="ct"></param>
     [HttpGet]
     public async Task<ActionResult<List<ProdutoDto>>> ObterTodos(CancellationToken ct = default)
     {
@@ -23,7 +27,11 @@ public class ProdutoController : ControllerBase
     }
 
 
-
+    /// <summary>
+    /// Busca um produto específico pelo seu identificador.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="ct"></param>
     [HttpGet("{id:int}")]
     public async Task<ActionResult<ProdutoDto>> ObterPorId(int id, CancellationToken ct = default)
     {
@@ -31,6 +39,11 @@ public class ProdutoController : ControllerBase
         return Ok(produto);
     }
 
+    /// <summary>
+    /// Cria um novo produto
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <param name="ct"></param>
     [HttpPost]
     public async Task<ActionResult<ProdutoDto>> Criar(CreateProdutoDto dto, CancellationToken ct = default)
     {
@@ -39,6 +52,12 @@ public class ProdutoController : ControllerBase
     }
 
 
+    /// <summary>
+    /// Atualiza um produto
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="dto"></param>
+    /// <param name="ct"></param>
     [HttpPut("{id:int}")]
     public async Task<ActionResult<ProdutoDto>> Atualizar(int id, UpdateProdutoDto dto, CancellationToken ct = default)
     {
@@ -46,6 +65,11 @@ public class ProdutoController : ControllerBase
         return Ok(produto);
     }
 
+    /// <summary>
+    /// Exclui um produto
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="ct"></param>
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Remover(int id, CancellationToken ct = default)
     {
