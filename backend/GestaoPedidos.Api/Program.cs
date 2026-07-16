@@ -1,6 +1,7 @@
 using GestaoPedidos.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using GestaoPedidos.Api.Extensions;
+using GestaoPedidos.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,9 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+// Tratamento básico de erros (try/catch ou middleware simples) 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Seed do banco de dados no startup
 // escopo manual
