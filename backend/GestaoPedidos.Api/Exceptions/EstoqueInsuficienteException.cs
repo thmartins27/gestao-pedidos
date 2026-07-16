@@ -1,4 +1,4 @@
-using GestaoPedidos.Api.Exceptions;
+namespace GestaoPedidos.Api.Exceptions;
 
 public class EstoqueInsuficienteException: DomainException
 {
