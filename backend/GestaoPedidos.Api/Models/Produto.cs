@@ -14,8 +14,8 @@ public class Produto
         Nome = nome;
         Preco = preco;
 
-        if (estoqueAtual <= 0)
-            throw new ArgumentException("A Quantidade deve ser maior que zero.", nameof(estoqueAtual));
+        if (estoqueAtual < 0)
+            throw new ArgumentException("O estoque não pode ser negativo.", nameof(estoqueAtual));
         EstoqueAtual = estoqueAtual;
     }
 
