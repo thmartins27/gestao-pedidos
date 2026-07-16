@@ -5,7 +5,7 @@ namespace GestaoPedidos.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddRepositores (this IServiceCollection services)
+    public static IServiceCollection AddRepositories (this IServiceCollection services)
     {
         services.AddScoped<IProdutoRepository, ProdutoRepository>();
         return services;

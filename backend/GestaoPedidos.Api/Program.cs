@@ -35,7 +35,7 @@ try
     );
 
 
-    builder.Services.AddRepositores();
+    builder.Services.AddRepositories();
     builder.Services.AddApplicationServices();
 
     builder.Services.AddControllers();
