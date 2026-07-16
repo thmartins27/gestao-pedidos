@@ -4,6 +4,8 @@ using GestaoPedidos.Api.Extensions;
 using GestaoPedidos.Api.Middlewares;
 using Serilog;
 using Scalar.AspNetCore;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -40,6 +42,10 @@ try
     builder.Services.AddApplicationServices();
 
     builder.Services.AddControllers();
+
+    // FluentValidation
+    builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+    builder.Services.AddFluentValidationAutoValidation();
 
     // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
     builder.Services.AddOpenApi();
