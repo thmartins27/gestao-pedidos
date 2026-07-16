@@ -1,6 +1,32 @@
-@GestaoPedidos.Api_HostAddress = http://localhost:5196
+@host = http://localhost:5196
 
-GET {{GestaoPedidos.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+### 1. Listar todos os produtos (espera 200 + 5 produtos do seed)
+GET {{host}}/api/produtos
 
-###
+### 2. Buscar produto existente (espera 200 + Notebook Dell)
+GET {{host}}/api/produtos/1
+
+### 3. Buscar produto INEXISTENTE (espera 404 + ProblemDetails) — testa o middleware
+GET {{host}}/api/produtos/999
+
+### 4. Criar produto (espera 201 + Location + produto com Id novo)
+POST {{host}}/api/produtos
+Content-Type: application/json
+
+{
+  "nome": "Cadeira Gamer",
+  "preco": 899.90,
+  "estoqueAtual": 12
+}
+
+### 5. Atualizar produto (espera 200 + produto atualizado)
+PUT {{host}}/api/produtos/1
+Content-Type: application/json
+
+{
+  "nome": "Notebook Dell XPS",
+  "preco": 5000.00
+}
+
+### 6. Remover produto (espera 204 sem corpo)
+DELETE {{host}}/api/produtos/6
