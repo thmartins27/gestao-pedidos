@@ -59,10 +59,13 @@ try
 
     // Seed do banco de dados no startup
     // escopo manual
-    using (var scope = app.Services.CreateScope())
+    if (!app.Environment.IsEnvironment("Testing"))
     {
-        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        await DbSeeder.SeedAsync(context);
+        using (var scope = app.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            await DbSeeder.SeedAsync(context);
+        }
     }
 
 
@@ -102,3 +105,5 @@ finally
     Log.CloseAndFlush();
 }
 
+// Expõe a classe Program (gerada implicitamente) para o projeto de testes.
+public partial class Program { }
