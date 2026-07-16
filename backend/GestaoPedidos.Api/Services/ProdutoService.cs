@@ -14,10 +14,17 @@ public class ProdutoService : IProdutoService
         _repository = repository;
     }
 
-    public async Task<List<ProdutoDto>> ObterTodosAsync(CancellationToken ct = default)
+    public async Task<PagedResult<ProdutoDto>> ObterTodosAsync(int page, int pageSize, CancellationToken ct = default)
     {
-        var produtos = await _repository.ObterTodosAsync(ct);
-        return produtos.Select(MapearParaDto).ToList();
+        var resultado = await _repository.ObterTodosAsync(page, pageSize, ct);
+
+        return new PagedResult<ProdutoDto>
+        {
+            Items = resultado.Items.Select(MapearParaDto).ToList(),
+            Page = resultado.Page,
+            PageSize = resultado.PageSize,
+            TotalItems = resultado.TotalItems
+        };
     }
 
     public async Task<ProdutoDto> ObterPorIdAsync(int id, CancellationToken ct = default)

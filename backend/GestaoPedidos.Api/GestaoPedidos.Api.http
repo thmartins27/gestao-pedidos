@@ -30,3 +30,27 @@ Content-Type: application/json
 
 ### 6. Remover produto (espera 204 sem corpo)
 DELETE {{host}}/api/produtos/6
+
+### 7. Obter todos os clientes paginado
+GET {{host}}/api/clientes?page=3&pageSize=1
+
+### 8. Cria um novo cliente
+POST {{host}}/api/clientes
+Content-Type: application/json
+
+{
+  "nome": "Jhon Dear",
+  "email": "jhon@1emailcom"
+}
+
+### 9. Atualizar cliente
+PUT {{host}}/api/clientes/5
+Content-Type: application/json
+
+{
+  "nome": "mr. Jhon Dear",
+  "email": "jhon@1emailcom"
+}
+
+### 10. Delete Cliente
+DELETE {{host}}/api/clientes/5
