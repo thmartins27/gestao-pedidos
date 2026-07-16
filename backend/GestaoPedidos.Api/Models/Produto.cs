@@ -1,3 +1,5 @@
+using GestaoPedidos.Api.Exceptions;
+
 namespace GestaoPedidos.Api.Models;
 
 public class Produto

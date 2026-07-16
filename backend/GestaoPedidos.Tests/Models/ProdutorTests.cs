@@ -1,3 +1,4 @@
+using GestaoPedidos.Api.Exceptions;
 using GestaoPedidos.Api.Models;
 
 namespace GestaoPedidos.Tests.Models;

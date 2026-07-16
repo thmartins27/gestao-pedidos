@@ -6,6 +6,7 @@ public interface IProdutoRepository
 {
     Task<PagedResult<Produto>> ObterTodosAsync(int page, int pageSize, CancellationToken ct = default);
     Task<Produto?> ObterPorIdAsync(int id, CancellationToken ct = default);
+    Task<List<Produto>> ObterPorIdsAsync(IEnumerable<int> ids, CancellationToken ct = default);
     Task AdicionarAsync(Produto produto, CancellationToken ct = default);
 
     void Atualizar(Produto produto);
