@@ -34,6 +34,7 @@ public class ExceptionHandlingMiddleware
         var (status, titulo) = exception switch
         {   RecursoNaoEncontradoException => (HttpStatusCode.NotFound, "Recurso não encontrado"),
             EstoqueInsuficienteException => (HttpStatusCode.BadRequest, "Regra de negócio violada"),
+            NotFoundException => (HttpStatusCode.NotFound, "Recurso não encontrado"),
             DomainException => (HttpStatusCode.BadRequest, "Regra de negócio violada"),
             ArgumentException => (HttpStatusCode.BadRequest, "Argumento Inválido"),
             _ => (HttpStatusCode.InternalServerError, "Erro interno do servidor")
