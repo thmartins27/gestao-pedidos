@@ -34,6 +34,6 @@ export class PedidoService {
   }
 
   atualizarStatus(id: number, dto: UpdateStatusPedido): Observable<Pedido> {
-    return this.http.patch<Pedido>(`${API_URL}/${id}`, dto);
+    return this.http.patch<Pedido>(`${API_URL}/${id}/status`, dto);
   }
 }

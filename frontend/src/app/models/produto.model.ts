@@ -1,13 +1,13 @@
 export interface Produto {
   id: number;
   nome: string;
-  preco: string;
+  preco: number;
   estoqueAtual: number;
 }
 
 export interface CreateProduto {
   nome: string;
-  preco: string;
+  preco: number;
   estoqueAtual: number;
 }
 
