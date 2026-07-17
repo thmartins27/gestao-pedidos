@@ -3,7 +3,7 @@ using GestaoPedidos.Api.DTOs.Produtos;
 
 namespace GestaoPedidos.Api.Validators.Produtos;
 
-public class UpdateProdutoDtoValidator: AbstractValidator<CreateProdutoDto>
+public class UpdateProdutoDtoValidator: AbstractValidator<UpdateProdutoDto>
 {
     public UpdateProdutoDtoValidator()
     {
