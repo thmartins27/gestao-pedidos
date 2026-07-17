@@ -1,0 +1,147 @@
+.header {
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0 0 4px;
+    font: var(--mat-sys-headline-medium);
+  }
+
+  .subtitle {
+    margin: 0;
+    font: var(--mat-sys-body-medium);
+    color: var(--mat-sys-secondary);
+  }
+}
+
+.colunas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.card {
+  background-color: var(--mat-sys-surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  padding: 24px;
+}
+
+.formulario {
+  flex: 2 1 340px;
+  min-width: 0;
+
+  h3 {
+    margin: 8px 0 16px;
+    font: var(--mat-sys-title-small);
+  }
+}
+
+.campo-cliente {
+  width: 100%;
+}
+
+.linha-produto {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: baseline;
+
+  .campo-produto {
+    flex: 1;
+    min-width: 240px;
+  }
+
+  .campo-qtd {
+    width: 110px;
+  }
+}
+
+.tabela-itens {
+  margin-top: 16px;
+  border: 1px solid var(--surface-divider);
+  border-radius: 12px;
+  overflow: hidden;
+
+  table {
+    width: 100%;
+    background-color: transparent;
+  }
+
+  th {
+    background-color: var(--surface-header);
+    color: var(--mat-sys-secondary);
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+}
+
+.col-centro {
+  text-align: center;
+}
+
+.col-valor {
+  text-align: right;
+}
+
+td.col-valor {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.col-remover {
+  text-align: right;
+
+  button {
+    color: var(--status-cancelado);
+  }
+}
+
+.sem-itens {
+  margin: 0;
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.resumo {
+  flex: 1 1 260px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+
+  .rotulo {
+    font: var(--mat-sys-label-medium);
+    color: var(--mat-sys-secondary);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  .valor-total {
+    font: var(--mat-sys-display-small);
+    color: var(--mat-sys-primary);
+    margin: 8px 0 4px;
+  }
+
+  .contagem {
+    color: var(--mat-sys-on-surface-variant);
+    margin-bottom: 24px;
+  }
+
+  .botao-criar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .colunas {
+    flex-direction: column;
+  }
+
+  .formulario,
+  .resumo {
+    width: 100%;
+    flex: none;
+  }
+}
