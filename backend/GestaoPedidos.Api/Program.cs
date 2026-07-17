@@ -6,6 +6,8 @@ using Serilog;
 using Scalar.AspNetCore;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using System.Text.Json.Serialization;
+using GestaoPedidos.Api.OpenApi;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -41,14 +43,20 @@ try
     builder.Services.AddRepositories();
     builder.Services.AddApplicationServices();
 
-    builder.Services.AddControllers();
+    builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
+        );
 
     // FluentValidation
     builder.Services.AddValidatorsFromAssemblyContaining<Program>();
     builder.Services.AddFluentValidationAutoValidation();
 
     // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-    builder.Services.AddOpenApi();
+    builder.Services.AddOpenApi(options =>
+    {
+        options.AddSchemaTransformer<EnumSchemaTransformer>();
+    });
 
     var app = builder.Build();
 
