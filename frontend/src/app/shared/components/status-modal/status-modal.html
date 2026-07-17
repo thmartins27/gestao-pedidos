@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Mudar status do pedido</h2>
+
+<mat-dialog-content>
+  <p class="subtitulo">Pedido #{{ data.id }} · {{ data.nomeCliente }}</p>
+
+  <div class="status-atual">
+    <span>Status atual:</span>
+    <app-status-chip [status]="data.status"></app-status-chip>
+  </div>
+
+  <p class="label-selecao">Selecione o novo status</p>
+
+  <mat-radio-group
+    class="opcoes"
+    [value]="selecionado()"
+    (change)="selecionado.set($event.value)"
+    [disabled]="carregando()"
+  >
+    @for (opcao of opcoes; track opcao) {
+    <mat-radio-button class="opcao" [value]="opcao">
+      <span class="dot" [class]="'dot-' + opcao.toLowerCase()"></span>
+      {{ opcao }}
+    </mat-radio-button>
+    }
+  </mat-radio-group>
+
+  @if (erro()) {
+  <div class="erro">
+    <mat-icon>error</mat-icon>
+    <span>{{ erro() }}</span>
+  </div>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="fechar()" [disabled]="carregando()">Cancelar</button>
+  <button
+    mat-flat-button
+    (click)="confirmar()"
+    [disabled]="!selecionado() || carregando()"
+  >
+    @if (carregando()) {
+    <mat-spinner diameter="16"></mat-spinner>
+    Confirmando… } @else if (erro()) { Tentar novamente } @else { Confirmar }
+  </button>
+</mat-dialog-actions>

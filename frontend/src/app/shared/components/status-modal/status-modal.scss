@@ -1,0 +1,66 @@
+.subtitulo {
+  margin: 0 0 16px;
+  color: var(--mat-sys-secondary);
+}
+
+.status-atual {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  span:first-child {
+    color: var(--mat-sys-secondary);
+  }
+}
+
+.label-selecao {
+  margin: 0 0 8px;
+  font-weight: 500;
+}
+
+.opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.dot-pago {
+  background-color: var(--status-pago);
+}
+
+.dot-cancelado {
+  background-color: var(--status-cancelado);
+}
+
+.erro {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: var(--status-cancelado-container);
+  border: 1px solid var(--status-cancelado);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 16px;
+  color: var(--status-cancelado);
+
+  mat-icon {
+    flex: none;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+mat-dialog-actions button mat-spinner {
+  display: inline-block;
+  margin-right: 8px;
+}
