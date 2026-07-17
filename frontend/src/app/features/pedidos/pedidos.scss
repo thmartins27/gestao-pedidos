@@ -1,0 +1,69 @@
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0 0 4px;
+    font: var(--mat-sys-headline-medium);
+  }
+
+  .subtitle {
+    margin: 0;
+    font: var(--mat-sys-body-medium);
+    color: var(--mat-sys-secondary);
+  }
+}
+
+.filtro-status {
+  min-width: 220px;
+}
+
+.tabela-card {
+  background-color: var(--mat-sys-surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  background-color: transparent;
+}
+
+.tabela-card th {
+  background-color: var(--surface-header);
+  color: var(--mat-sys-secondary);
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.tabela-card tr.mat-mdc-row:hover {
+  background-color: var(--surface-hover);
+}
+
+td.col-data {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.col-valor {
+  text-align: right;
+}
+
+td.col-valor {
+  font-family: "Roboto Mono", monospace;
+}
+
+mat-paginator {
+  background-color: transparent;
+  border-top: 1px solid var(--surface-divider);
+}
+
+button[mat-icon-button]:not(:disabled) {
+  color: var(--mat-sys-primary);
+}
