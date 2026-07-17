@@ -48,8 +48,30 @@ mat-toolbar {
 }
 
 .content {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  padding-right: 10rem;
-  padding-left: 10rem;
+  padding: 3rem clamp(16px, 8vw, 10rem);
+}
+
+@media (max-width: 720px) {
+  mat-toolbar {
+    gap: 12px;
+  }
+
+  .title-container {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 8px;
+    width: 100%;
+    justify-content: space-around;
+
+    a {
+      font-size: 14px;
+    }
+  }
+
+  .content {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
 }

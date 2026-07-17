@@ -27,11 +27,12 @@
   border: 1px solid var(--surface-border);
   border-radius: 16px;
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 table {
   width: 100%;
+  min-width: 620px;
   background-color: transparent;
 }
 

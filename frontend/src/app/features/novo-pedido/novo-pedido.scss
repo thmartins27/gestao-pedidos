@@ -62,10 +62,11 @@
   margin-top: 16px;
   border: 1px solid var(--surface-divider);
   border-radius: 12px;
-  overflow: hidden;
+  overflow-x: auto;
 
   table {
     width: 100%;
+    min-width: 420px;
     background-color: transparent;
   }
 
