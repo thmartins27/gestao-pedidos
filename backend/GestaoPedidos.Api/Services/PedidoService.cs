@@ -44,7 +44,7 @@ public class PedidoService : IPedidoService
     public async Task<PedidoDto> ObterPorIdAsync(int id, CancellationToken ct = default)
     {
         var pedido = await _pedidoRepository.ObterPorIdAsync(id, ct)
-            ?? throw new NotFoundException($"Pedido com id ${id} não encontrado");
+            ?? throw new NotFoundException($"Pedido com id {id} não encontrado");
 
         return MapToDto(pedido);
     }
