@@ -1,4 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PedidoResumo } from '../../models/pedido.model';
 import { StatusPedido } from '../../models/status-pedido.model';
 import { PedidoService } from '../../core/services/pedido.service';
@@ -11,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { EstadoVazio } from '../../shared/components/estado-vazio/estado-vazio';
 import { EstadoErro } from '../../shared/components/estado-erro/estado-erro';
 import { EstadoCarregando } from '../../shared/components/estado-carregando/estado-carregando';
+import { StatusModal } from '../../shared/components/status-modal/status-modal';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DatePipe, CurrencyPipe } from '@angular/common';
@@ -49,6 +52,9 @@ export class Pedidos implements OnInit {
 
   statusOpcoes: StatusPedido[] = ['Pendente', 'Pago', 'Cancelado'];
 
+  private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
+
   constructor(private pedidoService: PedidoService) {}
 
   ngOnInit(): void {
@@ -82,7 +88,21 @@ export class Pedidos implements OnInit {
 
   onMudarPagina(evento: PageEvent): void {
     this.pagina.set(evento.pageIndex + 1);
-    this.pageSize.set(evento.pageIndex);
+    this.pageSize.set(evento.pageSize);
     this.carregarPedidos();
+  }
+
+  abrirModalStatus(pedido: PedidoResumo): void {
+    const ref = this.dialog.open(StatusModal, {
+      width: '460px',
+      data: { id: pedido.id, nomeCliente: pedido.nomeCliente, status: pedido.status },
+    });
+
+    ref.afterClosed().subscribe((atualizado) => {
+      if (atualizado) {
+        this.snackBar.open('Status atualizado com sucesso.', undefined, { duration: 4000 });
+        this.carregarPedidos();
+      }
+    });
   }
 }
