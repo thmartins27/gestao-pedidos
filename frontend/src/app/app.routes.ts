@@ -1,19 +1,21 @@
 import { Routes } from '@angular/router';
 import { Component } from '@angular/core';
-import { Pedidos } from './features/pedidos/pedidos';
-import { NovoPedido } from './features/novo-pedido/novo-pedido';
 
 @Component({
   selector: 'app-placeholder',
-  template: '<p>Em contrução {{nome}}</p>',
+  template: '<p>Em construção</p>',
 })
-class Placeholder {
-  nome = '';
-}
+class Placeholder {}
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: Placeholder, data: { nome: 'Dashboard' } },
-  { path: 'pedidos', component: Pedidos, data: { nome: 'Pedidos' } },
-  { path: 'novo-pedido', component: NovoPedido },
+  { path: '', redirectTo: 'pedidos', pathMatch: 'full' },
+  { path: 'dashboard', component: Placeholder },
+  {
+    path: 'pedidos',
+    loadComponent: () => import('./features/pedidos/pedidos').then((m) => m.Pedidos),
+  },
+  {
+    path: 'novo-pedido',
+    loadComponent: () => import('./features/novo-pedido/novo-pedido').then((m) => m.NovoPedido),
+  },
 ];
