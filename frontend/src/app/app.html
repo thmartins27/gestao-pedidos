@@ -1,1 +1,25 @@
-<p>App shell — em construção</p>
+<mat-toolbar>
+  <div class="title-container">
+    <mat-icon>store</mat-icon>
+    <span class="brand">Gestão de Pedidos</span>
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/dashboard" routerLinkActive="active">
+      <mat-icon>dashboard</mat-icon>
+      Dashboard
+    </a>
+    <a routerLink="/pedidos" routerLinkActive="active">
+      <mat-icon>receipt_long</mat-icon>
+      Pedidos
+    </a>
+    <a routerLink="/novo-pedido" routerLinkActive="active">
+      <mat-icon>add_circle</mat-icon>
+      Novo Pedido
+    </a>
+  </nav>
+</mat-toolbar>
+
+<main class="content">
+  <router-outlet></router-outlet>
+</main>
