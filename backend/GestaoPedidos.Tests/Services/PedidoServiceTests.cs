@@ -148,7 +148,7 @@ public class PedidoServiceTests
 
         var dto = new UpdateStatusPedidoDto { NovoStatus = StatusPedido.Pago };
 
-        await Assert.ThrowsAsync<InvalidOperationException>(
+        await Assert.ThrowsAsync<TransicaoStatusInvalidaException>(
             () => _service.AtualizarStatusAsync(1, dto, TestContext.Current.CancellationToken));
 
         _pedidoRepo.Verify(r => r.SalvarAlteracoesAsync(It.IsAny<CancellationToken>()), Times.Never);

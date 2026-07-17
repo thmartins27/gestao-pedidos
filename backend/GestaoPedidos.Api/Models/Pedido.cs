@@ -1,3 +1,4 @@
+using GestaoPedidos.Api.Exceptions;
 using GestaoPedidos.Api.Models.Enums;
 
 namespace GestaoPedidos.Api.Models;
@@ -51,8 +52,7 @@ public class Pedido
         };
 
         if (!transicaoValida)
-            throw new InvalidOperationException($"Não é possível mudar o status de {Status} para {novoStatus}");
-
+            throw new TransicaoStatusInvalidaException(Status.ToString(), novoStatus.ToString());
         Status = novoStatus;
     }
 }

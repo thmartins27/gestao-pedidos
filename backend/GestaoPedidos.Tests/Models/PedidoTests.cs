@@ -1,3 +1,4 @@
+using GestaoPedidos.Api.Exceptions;
 using GestaoPedidos.Api.Models;
 using GestaoPedidos.Api.Models.Enums;
 
@@ -84,7 +85,7 @@ public class PedidoTests
         var pedido = new Pedido(clienteId: 1);
         pedido.MudarStatus(StatusPedido.Pago);
 
-        Assert.Throws<InvalidOperationException>(
+        Assert.Throws<TransicaoStatusInvalidaException>(
             () => pedido.MudarStatus(StatusPedido.Pendente));
     }
 
@@ -96,7 +97,7 @@ public class PedidoTests
         var pedido = new Pedido(clienteId: 1);
         pedido.MudarStatus(StatusPedido.Cancelado);
 
-        Assert.Throws<InvalidOperationException>(
+        Assert.Throws<TransicaoStatusInvalidaException>(
             () => pedido.MudarStatus(destino));
     }
 
@@ -105,7 +106,7 @@ public class PedidoTests
     {
         var pedido = new Pedido(clienteId: 1);
 
-        Assert.Throws<InvalidOperationException>(
+        Assert.Throws<TransicaoStatusInvalidaException>(
             () => pedido.MudarStatus(StatusPedido.Pendente));
     }
 }

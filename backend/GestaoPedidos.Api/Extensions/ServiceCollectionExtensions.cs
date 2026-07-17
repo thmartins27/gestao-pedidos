@@ -5,10 +5,11 @@ namespace GestaoPedidos.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddRepositories (this IServiceCollection services)
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IProdutoRepository, ProdutoRepository>();
         services.AddScoped<IClienteRepository, ClienteRepository>();
+        services.AddScoped<IPedidoRepository, PedidoRepository>();
         return services;
     }
 
@@ -16,6 +17,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IProdutoService, ProdutoService>();
         services.AddScoped<IClienteService, ClienteService>();
+        services.AddScoped<IPedidoService, PedidoService>();
         return services;
     }
 }
