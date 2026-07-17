@@ -1,0 +1,42 @@
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font: var(--mat-sys-label-large);
+  font-weight: 500;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-pendente {
+  background-color: var(--status-pendente-container);
+  color: var(--status-pendente);
+
+  .dot {
+    background-color: var(--status-pendente);
+  }
+}
+
+.status-pago {
+  background-color: var(--status-pago-container);
+  color: var(--status-pago);
+
+  .dot {
+    background-color: var(--status-pago);
+  }
+}
+
+.status-cancelado {
+  background-color: var(--status-cancelado-container);
+  color: var(--status-cancelado);
+
+  .dot {
+    background-color: var(--status-cancelado);
+  }
+}
