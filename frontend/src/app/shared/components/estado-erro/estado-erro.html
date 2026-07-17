@@ -1,0 +1,8 @@
+<div class="estado">
+  <mat-icon class="icone">wifi_off</mat-icon>
+  <h2 class="titulo">{{ titulo() }}</h2>
+  @if (subtitulo()) {
+  <p class="subtitulo">{{ subtitulo() }}</p>
+  }
+  <button mat-stroked-button (click)="tentarNovamente.emit()">Tentar novamente</button>
+</div>

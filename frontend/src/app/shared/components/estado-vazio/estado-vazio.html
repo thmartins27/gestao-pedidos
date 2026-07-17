@@ -1,0 +1,10 @@
+<div class="estado">
+  <mat-icon class="icone">{{ icone() }}</mat-icon>
+  <h2 class="titulo">{{ titulo() }}</h2>
+  @if (subtitulo()) {
+  <p class="subtitulo">{{ subtitulo() }}</p>
+  }
+  @if (acaoLabel() && acaoRota()) {
+  <a mat-flat-button [routerLink]="acaoRota()">{{ acaoLabel() }}</a>
+  }
+</div>

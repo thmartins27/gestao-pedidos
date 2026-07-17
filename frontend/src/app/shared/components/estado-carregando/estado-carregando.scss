@@ -1,0 +1,39 @@
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  background-color: var(--mat-sys-surface-variant);
+  border-radius: 12px;
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.barra {
+  height: 16px;
+  border-radius: 8px;
+  background-color: var(--mat-sys-outline-variant);
+
+  &:nth-child(1) {
+    width: 90%;
+  }
+
+  &:nth-child(2) {
+    width: 60%;
+  }
+
+  &:nth-child(3) {
+    width: 75%;
+  }
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--mat-sys-on-surface-variant);
+}
