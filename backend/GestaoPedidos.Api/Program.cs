@@ -58,6 +58,17 @@ try
         options.AddSchemaTransformer<EnumSchemaTransformer>();
     });
 
+
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("FrontendDev", policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+    });
+
     var app = builder.Build();
 
     app.UseSerilogRequestLogging();
@@ -94,6 +105,8 @@ try
     }
 
     app.UseHttpsRedirection();
+    
+    app.UseCors("FrontendDev");
 
     app.UseAuthorization();
 
