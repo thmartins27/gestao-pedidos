@@ -10,6 +10,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IProdutoRepository, ProdutoRepository>();
         services.AddScoped<IClienteRepository, ClienteRepository>();
         services.AddScoped<IPedidoRepository, PedidoRepository>();
+        services.AddScoped<IDashboardRepository, DashboardRepository>();
         return services;
     }
 
@@ -18,6 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IProdutoService, ProdutoService>();
         services.AddScoped<IClienteService, ClienteService>();
         services.AddScoped<IPedidoService, PedidoService>();
+        services.AddScoped<IDashboardService, DashboardService>();
         return services;
     }
 }
