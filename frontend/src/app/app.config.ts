@@ -5,6 +5,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 import { routes } from './app.routes';
 import { loggingInterceptor } from './core/interceptors/logging.interceptor';
@@ -21,5 +22,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: MatPaginatorIntl, useFactory: paginatorIntlPtBr },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top' },
+    },
   ],
 };

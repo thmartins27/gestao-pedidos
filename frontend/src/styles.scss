@@ -42,6 +42,35 @@ html {
   --surface-hover: #F7F6FA;
 }
 
+.mat-mdc-snack-bar-container.snackbar-sucesso,
+.mat-mdc-snack-bar-container.snackbar-erro {
+  margin-top: 24px;
+  min-width: 420px;
+
+  .mat-mdc-snackbar-surface {
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.25);
+  }
+
+  .mdc-snackbar__label {
+    font-size: 15px;
+    font-weight: 500;
+    color: #FFFFFF;
+  }
+
+  .mat-mdc-snack-bar-action {
+    color: #FFFFFF;
+    font-weight: 600;
+  }
+}
+
+.mat-mdc-snack-bar-container.snackbar-sucesso .mat-mdc-snackbar-surface {
+  background-color: var(--status-pago);
+}
+
+.mat-mdc-snack-bar-container.snackbar-erro .mat-mdc-snackbar-surface {
+  background-color: var(--status-cancelado);
+}
+
 body {
   color-scheme: light;
   background-color: var(--mat-sys-background);

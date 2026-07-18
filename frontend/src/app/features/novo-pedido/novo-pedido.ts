@@ -130,11 +130,16 @@ export class NovoPedido implements OnInit {
 
     this.pedidoService.criar(dto).subscribe({
       next: () => {
-        this.snackBar.open('Pedido criado com sucesso.', undefined, { duration: 4000 });
+        this.snackBar.open('Pedido criado com sucesso.', undefined, {
+          panelClass: 'snackbar-sucesso',
+        });
         this.router.navigate(['/pedidos']);
       },
       error: (err: Error) => {
-        this.snackBar.open(err.message, 'Fechar', { duration: 6000 });
+        this.snackBar.open(err.message, 'Fechar', {
+          panelClass: 'snackbar-erro',
+          duration: 8000,
+        });
         this.salvando.set(false);
       },
     });

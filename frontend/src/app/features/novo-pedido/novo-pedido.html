@@ -31,7 +31,11 @@
           @for (produto of produtos(); track produto.id) {
           <mat-option [value]="produto" [disabled]="produto.estoqueAtual === 0">
             {{ produto.nome }} — {{ produto.preco | currency: 'BRL' }}
-            @if (produto.estoqueAtual === 0) { (sem estoque) }
+            @if (produto.estoqueAtual === 0) {
+            <span class="estoque sem-estoque">· sem estoque</span>
+            } @else {
+            <span class="estoque">· {{ produto.estoqueAtual }} em estoque</span>
+            }
           </mat-option>
           }
         </mat-select>

@@ -100,7 +100,9 @@ export class Pedidos implements OnInit {
 
     ref.afterClosed().subscribe((atualizado) => {
       if (atualizado) {
-        this.snackBar.open('Status atualizado com sucesso.', undefined, { duration: 4000 });
+        this.snackBar.open('Status atualizado com sucesso.', undefined, {
+          panelClass: 'snackbar-sucesso',
+        });
         this.carregarPedidos();
       }
     });
