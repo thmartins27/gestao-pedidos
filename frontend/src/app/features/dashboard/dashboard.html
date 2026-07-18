@@ -25,7 +25,8 @@
   @for (item of dados.pedidosPorStatus; track item.status) {
   <div class="card status" [class]="'status-' + item.status.toLowerCase()">
     <app-status-chip [status]="item.status"></app-status-chip>
-    <span class="quantidade">{{ item.quantidade }}</span>
+    <span class="valor">{{ item.valorTotal | currency: 'BRL' }}</span>
+    <span class="quantidade">{{ item.quantidade }} {{ item.quantidade === 1 ? 'pedido' : 'pedidos' }}</span>
   </div>
   }
 </div>

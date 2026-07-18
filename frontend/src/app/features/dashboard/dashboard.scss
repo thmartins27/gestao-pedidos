@@ -61,17 +61,22 @@
   min-width: 200px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
   border: none;
 
-  .quantidade {
+  .valor {
     font: var(--mat-sys-display-small);
+  }
+
+  .quantidade {
+    font: var(--mat-sys-body-medium);
+    color: var(--mat-sys-on-surface-variant);
   }
 
   &.status-pendente {
     background-color: var(--status-pendente-container);
 
-    .quantidade {
+    .valor {
       color: var(--status-pendente);
     }
   }
@@ -79,7 +84,7 @@
   &.status-pago {
     background-color: var(--status-pago-container);
 
-    .quantidade {
+    .valor {
       color: var(--status-pago);
     }
   }
@@ -87,7 +92,7 @@
   &.status-cancelado {
     background-color: var(--status-cancelado-container);
 
-    .quantidade {
+    .valor {
       color: var(--status-cancelado);
     }
   }

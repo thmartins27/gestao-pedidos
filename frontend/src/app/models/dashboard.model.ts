@@ -3,6 +3,7 @@ import { StatusPedido } from './status-pedido.model';
 export interface PedidosPorStatus {
   status: StatusPedido;
   quantidade: number;
+  valorTotal: number;
 }
 
 export interface DashboardResumo {

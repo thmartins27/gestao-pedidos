@@ -13,4 +13,5 @@ public class PedidoStatusDto
 {
     public StatusPedido Status { get; set; }
     public int Quantidade { get; set; }
+    public decimal ValorTotal { get; set; }
 }
