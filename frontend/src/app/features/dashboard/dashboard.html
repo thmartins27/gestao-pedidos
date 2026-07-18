@@ -1,0 +1,32 @@
+<div class="header">
+  <h1>Dashboard</h1>
+  <p class="subtitle">Resumo geral dos pedidos</p>
+</div>
+
+@if (carregando()) {
+<app-estado-carregando mensagem="Carregando resumo…"></app-estado-carregando>
+} @else if (erro()) {
+<app-estado-erro (tentarNovamente)="carregarResumo()"></app-estado-erro>
+} @else if (resumo(); as dados) {
+<div class="cards-totais">
+  <div class="card total">
+    <span class="rotulo">Total de pedidos</span>
+    <span class="valor">{{ dados.totalPedidos }}</span>
+  </div>
+  <div class="card total">
+    <span class="rotulo">Valor total geral</span>
+    <span class="valor valor-primary">{{ dados.valorTotalPedidos | currency: 'BRL' }}</span>
+  </div>
+</div>
+
+<h2 class="secao">Pedidos por status</h2>
+
+<div class="cards-status">
+  @for (item of dados.pedidosPorStatus; track item.status) {
+  <div class="card status" [class]="'status-' + item.status.toLowerCase()">
+    <app-status-chip [status]="item.status"></app-status-chip>
+    <span class="quantidade">{{ item.quantidade }}</span>
+  </div>
+  }
+</div>
+}

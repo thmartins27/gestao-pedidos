@@ -1,0 +1,101 @@
+.header {
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0 0 4px;
+    font: var(--mat-sys-headline-medium);
+  }
+
+  .subtitle {
+    margin: 0;
+    font: var(--mat-sys-body-medium);
+    color: var(--mat-sys-secondary);
+  }
+}
+
+.card {
+  background-color: var(--mat-sys-surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  padding: 24px;
+}
+
+.cards-totais,
+.cards-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.total {
+  flex: 1;
+  min-width: 220px;
+
+  .rotulo {
+    display: block;
+    font: var(--mat-sys-label-medium);
+    color: var(--mat-sys-secondary);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .valor {
+    font: var(--mat-sys-display-small);
+    color: var(--mat-sys-on-surface);
+  }
+
+  .valor-primary {
+    color: var(--mat-sys-primary);
+  }
+}
+
+.secao {
+  margin: 32px 0 16px;
+  font: var(--mat-sys-title-medium);
+}
+
+.status {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: none;
+
+  .quantidade {
+    font: var(--mat-sys-display-small);
+  }
+
+  &.status-pendente {
+    background-color: var(--status-pendente-container);
+
+    .quantidade {
+      color: var(--status-pendente);
+    }
+  }
+
+  &.status-pago {
+    background-color: var(--status-pago-container);
+
+    .quantidade {
+      color: var(--status-pago);
+    }
+  }
+
+  &.status-cancelado {
+    background-color: var(--status-cancelado-container);
+
+    .quantidade {
+      color: var(--status-cancelado);
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .cards-totais,
+  .cards-status {
+    flex-direction: column;
+  }
+}
