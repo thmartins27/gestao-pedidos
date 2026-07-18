@@ -55,6 +55,13 @@ public class PedidoService : IPedidoService
             ?? throw new NotFoundException($"Pedido com id {id} não encontrado");
 
         pedido.MudarStatus(dto.NovoStatus);
+
+        if (dto.NovoStatus == StatusPedido.Cancelado)
+        {
+            foreach (var item in pedido.Itens)
+                item.Produto.DevolverEstoque(item.Quantidade);
+        }
+
         await _pedidoRepository.SalvarAlteracoesAsync(ct);
 
         var atualizado = await _pedidoRepository.ObterPorIdAsync(id, ct);

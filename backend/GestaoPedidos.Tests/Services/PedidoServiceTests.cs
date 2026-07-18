@@ -154,4 +154,48 @@ public class PedidoServiceTests
         _pedidoRepo.Verify(r => r.SalvarAlteracoesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
+    [Fact]
+    public async Task AtualizarStatusAsync_AoCancelar_DevolveEstoqueDosItens()
+    {
+        var cliente = ClienteFake(1);
+        var produto = ProdutoFake(id: 10, estoque: 5, preco: 20m);
+
+        var pedido = new Pedido(cliente.Id);
+        typeof(Pedido).GetProperty(nameof(Pedido.Cliente))!.SetValue(pedido, cliente);
+        pedido.AdicionarItem(new ItemPedido(produto, pedido.Id, 3));
+
+        _pedidoRepo.Setup(r => r.ObterParaAtualizacaoAsync(1, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(pedido);
+        _pedidoRepo.Setup(r => r.ObterPorIdAsync(1, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(pedido);
+
+        var dto = new UpdateStatusPedidoDto { NovoStatus = StatusPedido.Cancelado };
+
+        await _service.AtualizarStatusAsync(1, dto, TestContext.Current.CancellationToken);
+
+        Assert.Equal(8, produto.EstoqueAtual); // 5 + 3 devolvidos
+    }
+
+    [Fact]
+    public async Task AtualizarStatusAsync_AoConfirmarPagamento_NaoAlteraEstoque()
+    {
+        var cliente = ClienteFake(1);
+        var produto = ProdutoFake(id: 10, estoque: 5, preco: 20m);
+
+        var pedido = new Pedido(cliente.Id);
+        typeof(Pedido).GetProperty(nameof(Pedido.Cliente))!.SetValue(pedido, cliente);
+        pedido.AdicionarItem(new ItemPedido(produto, pedido.Id, 3));
+
+        _pedidoRepo.Setup(r => r.ObterParaAtualizacaoAsync(1, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(pedido);
+        _pedidoRepo.Setup(r => r.ObterPorIdAsync(1, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(pedido);
+
+        var dto = new UpdateStatusPedidoDto { NovoStatus = StatusPedido.Pago };
+
+        await _service.AtualizarStatusAsync(1, dto, TestContext.Current.CancellationToken);
+
+        Assert.Equal(5, produto.EstoqueAtual);
+    }
+
 }

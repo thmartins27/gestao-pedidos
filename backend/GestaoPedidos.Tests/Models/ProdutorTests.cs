@@ -33,4 +33,23 @@ public class ProdutoTests
         var produto = new Produto("Caneta Bic", 2.20m, 20);
         Assert.Throws<EstoqueInsuficienteException>(() => produto.BaixarEstoque(200));
     }
+
+    [Fact]
+    public void DevolverEstoque_ComQuantidadeValida_IncrementaEstoqueAtual()
+    {
+        var produto = new Produto("Caneta Bic", 2.20m, 20);
+
+        produto.DevolverEstoque(5);
+
+        Assert.Equal(25, produto.EstoqueAtual);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-10)]
+    public void DevolverEstoque_ComQuantidadeZeroOuNegativa_LancaArgumentException(int quantidade)
+    {
+        var produto = new Produto("Caneta Bic", 2.20m, 20);
+        Assert.Throws<ArgumentException>(() => produto.DevolverEstoque(quantidade));
+    }
 }

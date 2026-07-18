@@ -50,7 +50,9 @@ public class PedidoRepository : IPedidoRepository
             .FirstOrDefaultAsync(p => p.Id == id, ct);
 
     public async Task<Pedido?> ObterParaAtualizacaoAsync(int id, CancellationToken ct = default)
-        => await _context.Pedidos.FindAsync([id], ct);
+        => await _context.Pedidos
+            .Include(p => p.Itens).ThenInclude(i => i.Produto)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
 
     public async Task AdicionarAsync(Pedido pedido, CancellationToken ct = default)
         => await _context.Pedidos.AddAsync(pedido, ct);

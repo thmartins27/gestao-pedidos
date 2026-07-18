@@ -30,4 +30,12 @@ public class Produto
 
         EstoqueAtual -= quantidade;
     }
+
+    public void DevolverEstoque(int quantidade)
+    {
+        if (quantidade <= 0)
+            throw new ArgumentException("A Quantidade deve ser maior que zero.", nameof(quantidade));
+
+        EstoqueAtual += quantidade;
+    }
 }
