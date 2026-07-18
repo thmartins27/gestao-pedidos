@@ -115,6 +115,46 @@ td.col-valor {
   color: var(--mat-sys-on-surface-variant);
 }
 
+.itens-mobile {
+  display: none;
+}
+
+.item-mobile {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--surface-divider);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.item-mobile-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  .nome {
+    font-weight: 500;
+  }
+
+  button {
+    flex: none;
+    color: var(--status-cancelado);
+  }
+}
+
+.item-mobile-detalhe {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 14px;
+  margin-top: 2px;
+
+  strong {
+    color: var(--mat-sys-on-surface);
+    font-family: 'Roboto Mono', monospace;
+  }
+}
+
 .resumo {
   flex: 1 1 260px;
   min-width: 0;
@@ -153,5 +193,13 @@ td.col-valor {
   .resumo {
     width: 100%;
     flex: none;
+  }
+
+  .tabela-desktop {
+    display: none;
+  }
+
+  .itens-mobile {
+    display: block;
   }
 }

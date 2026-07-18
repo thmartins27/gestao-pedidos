@@ -64,7 +64,7 @@
     </div>
 
     <div class="tabela-itens">
-      <table mat-table [dataSource]="itens()">
+      <table mat-table [dataSource]="itens()" class="tabela-desktop">
         <ng-container matColumnDef="produto">
           <th mat-header-cell *matHeaderCellDef>Produto</th>
           <td mat-cell *matCellDef="let item">{{ item.produto.nome }}</td>
@@ -101,6 +101,23 @@
         <tr mat-header-row *matHeaderRowDef="colunas"></tr>
         <tr mat-row *matRowDef="let row; columns: colunas"></tr>
       </table>
+
+      <div class="itens-mobile">
+        @for (item of itens(); track item.produto.id) {
+        <div class="item-mobile">
+          <div class="item-mobile-topo">
+            <span class="nome">{{ item.produto.nome }}</span>
+            <button mat-icon-button (click)="removerItem(item)" title="Remover item">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <div class="item-mobile-detalhe">
+            {{ item.quantidade }} × {{ item.produto.preco | currency: 'BRL' }} =
+            <strong>{{ item.produto.preco * item.quantidade | currency: 'BRL' }}</strong>
+          </div>
+        </div>
+        }
+      </div>
 
       @if (itens().length === 0) {
       <p class="sem-itens">Nenhum item adicionado ainda.</p>
