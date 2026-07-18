@@ -1,33 +1,42 @@
-<mat-toolbar>
-  <div class="title-container">
-    <mat-icon>store</mat-icon>
-    <span class="brand">Gestão de Pedidos</span>
-  </div>
+<header class="topbar-wrapper">
+  <mat-toolbar class="topbar">
+    <div class="title-container">
+      <mat-icon>store</mat-icon>
+      <span class="brand">Gestão de Pedidos</span>
+    </div>
 
-  <nav class="nav-links">
-    <a routerLink="/dashboard" routerLinkActive="active">
-      <mat-icon>dashboard</mat-icon>
-      Dashboard
+    <button mat-icon-button class="menu-toggle" (click)="toggleMenu()" aria-label="Abrir menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  @if (menuAberto()) {
+  <nav class="menu-mobile">
+    @for (item of itensMenu; track item.rota) {
+    <a [routerLink]="item.rota" routerLinkActive="active" (click)="fecharMenu()">
+      <mat-icon>{{ item.icone }}</mat-icon>
+      {{ item.label }}
     </a>
-    <a routerLink="/pedidos" routerLinkActive="active">
-      <mat-icon>receipt_long</mat-icon>
-      Pedidos
-    </a>
-    <a routerLink="/novo-pedido" routerLinkActive="active">
-      <mat-icon>add_circle</mat-icon>
-      Novo Pedido
-    </a>
-    <a routerLink="/produtos" routerLinkActive="active">
-      <mat-icon>inventory_2</mat-icon>
-      Produtos
-    </a>
-    <a routerLink="/novo-produto" routerLinkActive="active">
-      <mat-icon>add_box</mat-icon>
-      Novo Produto
-    </a>
+    }
   </nav>
-</mat-toolbar>
+  }
+</header>
 
-<main class="content">
-  <router-outlet></router-outlet>
-</main>
+@if (menuAberto()) {
+<div class="overlay" (click)="fecharMenu()"></div>
+}
+
+<div class="body">
+  <nav class="sidebar">
+    @for (item of itensMenu; track item.rota) {
+    <a [routerLink]="item.rota" routerLinkActive="active">
+      <mat-icon>{{ item.icone }}</mat-icon>
+      {{ item.label }}
+    </a>
+    }
+  </nav>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
