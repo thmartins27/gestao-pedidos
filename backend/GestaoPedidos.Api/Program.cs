@@ -76,13 +76,31 @@ try
     // Tratamento básico de erros (try/catch ou middleware simples) 
     app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-    // Seed do banco de dados no startup
+    // Aplica migrations e seed do banco de dados no startup
     // escopo manual
     if (!app.Environment.IsEnvironment("Testing"))
     {
         using (var scope = app.Services.CreateScope())
         {
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            // Em ambientes containerizados o Postgres pode ainda estar de pé quando o app inicia,
+            // mesmo com o healthcheck do compose; algumas tentativas evitam falha na primeira subida.
+            const int tentativasMigracao = 5;
+            for (var tentativa = 1; tentativa <= tentativasMigracao; tentativa++)
+            {
+                try
+                {
+                    await context.Database.MigrateAsync();
+                    break;
+                }
+                catch (Exception ex) when (tentativa < tentativasMigracao)
+                {
+                    Log.Warning(ex, "Falha ao aplicar migrations (tentativa {Tentativa}/{Total})", tentativa, tentativasMigracao);
+                    await Task.Delay(TimeSpan.FromSeconds(3));
+                }
+            }
+
             await DbSeeder.SeedAsync(context);
         }
     }
