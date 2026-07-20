@@ -25,7 +25,6 @@ public class DashboardService : IDashboardService
         };
     }
 
-    // Status sem pedidos não aparecem no agrupamento, mas o consumidor espera os três sempre presentes.
     private static List<PedidoStatusDto> MapearTodosOsStatus(IReadOnlyList<TotaisPorStatus> totais)
         => Enum.GetValues<StatusPedido>()
             .Select(status =>

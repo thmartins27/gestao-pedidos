@@ -46,8 +46,8 @@ public class PedidoTests
         var teclado = CriarProduto(nome: "Teclado", preco: 150m, id: 1);
         var mouse = CriarProduto(nome: "Mouse", preco: 80m, id: 2);
 
-        pedido.AdicionarItem(CriarItem(teclado, 2)); // 150 × 2 = 300
-        pedido.AdicionarItem(CriarItem(mouse, 1));   //  80 × 1 =  80
+        pedido.AdicionarItem(CriarItem(teclado, 2));
+        pedido.AdicionarItem(CriarItem(mouse, 1));
 
         Assert.Equal(380m, pedido.ValorTotal);
     }

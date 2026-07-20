@@ -84,8 +84,6 @@ try
         {
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-            // Em ambientes containerizados o Postgres pode ainda estar de pé quando o app inicia,
-            // mesmo com o healthcheck do compose; algumas tentativas evitam falha na primeira subida.
             const int tentativasMigracao = 5;
             for (var tentativa = 1; tentativa <= tentativasMigracao; tentativa++)
             {
@@ -144,5 +142,4 @@ finally
     Log.CloseAndFlush();
 }
 
-// Expõe a classe Program (gerada implicitamente) para o projeto de testes.
 public partial class Program { }

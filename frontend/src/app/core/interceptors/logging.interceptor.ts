@@ -8,10 +8,10 @@ export const loggingInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     tap({
       next: () => {
-        console.log(`← ${req.method} ${req.url} (${Date.now() - started}ms)`);
+        console.log(`<- ${req.method} ${req.url} (${Date.now() - started}ms)`);
       },
       error: (err) => {
-        console.log(`✗ ${req.method} ${req.url} (${Date.now() - started}ms)`, err);
+        console.log(`x ${req.method} ${req.url} (${Date.now() - started}ms)`, err);
       },
     }),
   );

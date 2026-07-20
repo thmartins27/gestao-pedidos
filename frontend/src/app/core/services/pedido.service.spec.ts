@@ -22,7 +22,7 @@ describe('PedidoService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify(); // garante que não sobrou request sem resposta
+    httpMock.verify();
   });
 
   it('deve buscar pedidos paginados', () => {

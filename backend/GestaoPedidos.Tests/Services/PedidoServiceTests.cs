@@ -63,8 +63,8 @@ public class PedidoServiceTests
 
         var resultado = await _service.CriarAsync(dto, TestContext.Current.CancellationToken);
 
-        Assert.Equal(2, produto.EstoqueAtual); // verifica se o estoque teve baixa
-        Assert.Equal("Pendente", resultado.Status); // pedido deve sempre iniciar como pendente
+        Assert.Equal(2, produto.EstoqueAtual);
+        Assert.Equal("Pendente", resultado.Status);
 
         _pedidoRepo.Verify(r => r.AdicionarAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()), Times.Once);
         _pedidoRepo.Verify(r => r.SalvarAlteracoesAsync(It.IsAny<CancellationToken>()), Times.Once);
@@ -86,7 +86,7 @@ public class PedidoServiceTests
         {
             ClienteId = 1,
             Itens = [new CreatePedidoItemDto {
-                ProdutoId = 10, Quantidade = 6 // estoque com 1 a mais
+                ProdutoId = 10, Quantidade = 6
             }]
         };
 
@@ -111,7 +111,6 @@ public class PedidoServiceTests
 
         await Assert.ThrowsAsync<NotFoundException>(() => _service.CriarAsync(dto, TestContext.Current.CancellationToken));
 
-        // Nem chegou a buscar produtos nem a salvar
         _produtoRepo.Verify(r => r.ObterPorIdsAsync(It.IsAny<IEnumerable<int>>(), It.IsAny<CancellationToken>()), Times.Never);
         _pedidoRepo.Verify(r => r.SalvarAlteracoesAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
@@ -119,11 +118,10 @@ public class PedidoServiceTests
     [Fact]
     public async Task CriarAsync_ComProdutoInexistente_DeveLancarNotFound()
     {
-        // cliente existe, mas a busca de produtos volta vazia (id não encontrado)
         _clienteRepo.Setup(r => r.ObterPorIdAsync(1, It.IsAny<CancellationToken>()))
             .ReturnsAsync(ClienteFake(1));
         _produtoRepo.Setup(r => r.ObterPorIdsAsync(It.IsAny<IEnumerable<int>>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new List<Produto>()); // nenhum produto encontrado
+            .ReturnsAsync(new List<Produto>());
 
         var dto = new CreatePedidoDto
         {
@@ -139,9 +137,8 @@ public class PedidoServiceTests
     [Fact]
     public async Task AtualizarStatusAsync_ComTransicaoInvalida_DeveLancarInvalidOperation()
     {
-        // pedido já Cancelado; tentar ir para Pago é inválido pelo domínio
         var pedido = new Pedido(1);
-        pedido.MudarStatus(StatusPedido.Cancelado); // Pendente -> Cancelado (válido)
+        pedido.MudarStatus(StatusPedido.Cancelado);
 
         _pedidoRepo.Setup(r => r.ObterParaAtualizacaoAsync(1, It.IsAny<CancellationToken>()))
             .ReturnsAsync(pedido);
@@ -173,7 +170,7 @@ public class PedidoServiceTests
 
         await _service.AtualizarStatusAsync(1, dto, TestContext.Current.CancellationToken);
 
-        Assert.Equal(8, produto.EstoqueAtual); // 5 + 3 devolvidos
+        Assert.Equal(8, produto.EstoqueAtual);
     }
 
     [Fact]
