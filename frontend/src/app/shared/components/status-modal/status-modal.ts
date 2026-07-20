@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -27,6 +28,7 @@ const TRANSICOES: Record<StatusPedido, StatusPedido[]> = {
 @Component({
   selector: 'app-status-modal',
   imports: [
+    ReactiveFormsModule,
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
@@ -45,7 +47,7 @@ export class StatusModal {
 
   opcoes = TRANSICOES[this.data.status];
 
-  selecionado = signal<StatusPedido | null>(null);
+  selecionado = new FormControl<StatusPedido | null>(null);
   carregando = signal(false);
   erro = signal<string | null>(null);
 
@@ -54,19 +56,21 @@ export class StatusModal {
   }
 
   confirmar(): void {
-    const novoStatus = this.selecionado();
+    const novoStatus = this.selecionado.value;
     if (!novoStatus || this.carregando()) {
       return;
     }
 
     this.carregando.set(true);
     this.erro.set(null);
+    this.selecionado.disable();
 
     this.pedidoService.atualizarStatus(this.data.id, { novoStatus }).subscribe({
       next: (pedido) => this.dialogRef.close(pedido),
       error: (err: Error) => {
         this.erro.set(err.message);
         this.carregando.set(false);
+        this.selecionado.enable();
       },
     });
   }

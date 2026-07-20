@@ -10,12 +10,7 @@
 
   <p class="label-selecao">Selecione o novo status</p>
 
-  <mat-radio-group
-    class="opcoes"
-    [value]="selecionado()"
-    (change)="selecionado.set($event.value)"
-    [disabled]="carregando()"
-  >
+  <mat-radio-group class="opcoes" [formControl]="selecionado">
     @for (opcao of opcoes; track opcao) {
     <mat-radio-button class="opcao" [value]="opcao">
       <span class="dot" [class]="'dot-' + opcao.toLowerCase()"></span>
@@ -37,7 +32,7 @@
   <button
     mat-flat-button
     (click)="confirmar()"
-    [disabled]="!selecionado() || carregando()"
+    [disabled]="!selecionado.value || carregando()"
   >
     @if (carregando()) {
     <mat-spinner diameter="16"></mat-spinner>

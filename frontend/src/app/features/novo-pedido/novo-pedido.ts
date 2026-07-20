@@ -1,6 +1,6 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,7 +26,7 @@ interface ItemNovoPedido {
 @Component({
   selector: 'app-novo-pedido',
   imports: [
-    FormsModule,
+    ReactiveFormsModule,
     CurrencyPipe,
     MatFormFieldModule,
     MatSelectModule,
@@ -48,15 +48,23 @@ export class NovoPedido implements OnInit {
   carregando = signal(false);
   erro = signal(false);
 
-  clienteId = signal<number | null>(null);
-  produtoSelecionado = signal<Produto | null>(null);
-  quantidade = signal(1);
   itens = signal<ItemNovoPedido[]>([]);
   salvando = signal(false);
 
   total = computed(() =>
     this.itens().reduce((soma, item) => soma + item.produto.preco * item.quantidade, 0),
   );
+
+  private fb = inject(FormBuilder);
+
+  form = this.fb.group({
+    clienteId: this.fb.control<number | null>(null, Validators.required),
+    produtoSelecionado: this.fb.control<Produto | null>(null),
+    quantidade: this.fb.control(1, {
+      nonNullable: true,
+      validators: [Validators.required, Validators.min(1)],
+    }),
+  });
 
   private clienteService = inject(ClienteService);
   private produtoService = inject(ProdutoService);
@@ -89,8 +97,8 @@ export class NovoPedido implements OnInit {
   }
 
   adicionarItem(): void {
-    const produto = this.produtoSelecionado();
-    const quantidade = this.quantidade();
+    const produto = this.form.controls.produtoSelecionado.value;
+    const quantidade = this.form.controls.quantidade.value;
     if (!produto || quantidade < 1) {
       return;
     }
@@ -104,8 +112,8 @@ export class NovoPedido implements OnInit {
     }
 
     this.itens.set(itens);
-    this.produtoSelecionado.set(null);
-    this.quantidade.set(1);
+    this.form.controls.produtoSelecionado.reset(null);
+    this.form.controls.quantidade.setValue(1);
   }
 
   removerItem(item: ItemNovoPedido): void {
@@ -113,7 +121,7 @@ export class NovoPedido implements OnInit {
   }
 
   criarPedido(): void {
-    const clienteId = this.clienteId();
+    const clienteId = this.form.controls.clienteId.value;
     if (!clienteId || this.itens().length === 0 || this.salvando()) {
       return;
     }

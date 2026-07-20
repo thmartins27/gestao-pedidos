@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,35 +11,39 @@ import { ProdutoService } from '../../core/services/produto.service';
 
 @Component({
   selector: 'app-novo-produto',
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
   templateUrl: './novo-produto.html',
   styleUrl: './novo-produto.scss',
 })
 export class NovoProduto {
-  nome = signal('');
-  preco = signal<number | null>(null);
-  estoqueAtual = signal<number | null>(null);
   salvando = signal(false);
 
+  private fb = inject(FormBuilder);
   private produtoService = inject(ProdutoService);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
 
-  formValido(): boolean {
-    return this.nome().trim().length > 0 && (this.preco() ?? 0) > 0 && (this.estoqueAtual() ?? 0) > 0;
-  }
+  form = this.fb.group({
+    nome: this.fb.control('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.maxLength(200)],
+    }),
+    preco: this.fb.control<number | null>(null, [Validators.required, Validators.min(0.01)]),
+    estoqueAtual: this.fb.control<number | null>(null, [Validators.required, Validators.min(1)]),
+  });
 
   criarProduto(): void {
-    if (!this.formValido() || this.salvando()) {
+    if (this.form.invalid || this.salvando()) {
       return;
     }
 
     this.salvando.set(true);
 
+    const { nome, preco, estoqueAtual } = this.form.getRawValue();
     const dto: CreateProduto = {
-      nome: this.nome().trim(),
-      preco: this.preco()!,
-      estoqueAtual: this.estoqueAtual()!,
+      nome: nome.trim(),
+      preco: preco!,
+      estoqueAtual: estoqueAtual!,
     };
 
     this.produtoService.criar(dto).subscribe({

@@ -8,11 +8,11 @@
 } @else if (erro()) {
 <app-estado-erro (tentarNovamente)="carregarDados()"></app-estado-erro>
 } @else {
-<div class="colunas">
+<div class="colunas" [formGroup]="form">
   <div class="card formulario">
     <mat-form-field appearance="outline" class="campo-cliente">
       <mat-label>Cliente</mat-label>
-      <mat-select [ngModel]="clienteId()" (ngModelChange)="clienteId.set($event)" required>
+      <mat-select formControlName="clienteId">
         @for (cliente of clientes(); track cliente.id) {
         <mat-option [value]="cliente.id">{{ cliente.nome }}</mat-option>
         }
@@ -24,10 +24,7 @@
     <div class="linha-produto">
       <mat-form-field appearance="outline" class="campo-produto">
         <mat-label>Produto</mat-label>
-        <mat-select
-          [ngModel]="produtoSelecionado()"
-          (ngModelChange)="produtoSelecionado.set($event)"
-        >
+        <mat-select formControlName="produtoSelecionado">
           @for (produto of produtos(); track produto.id) {
           <mat-option [value]="produto" [disabled]="produto.estoqueAtual === 0">
             {{ produto.nome }} — {{ produto.preco | currency: 'BRL' }}
@@ -43,20 +40,14 @@
 
       <mat-form-field appearance="outline" class="campo-qtd">
         <mat-label>Qtd.</mat-label>
-        <input
-          matInput
-          type="number"
-          min="1"
-          [ngModel]="quantidade()"
-          (ngModelChange)="quantidade.set($event)"
-        />
+        <input matInput type="number" min="1" formControlName="quantidade" />
       </mat-form-field>
 
       <button
         mat-flat-button
         class="botao-adicionar"
         (click)="adicionarItem()"
-        [disabled]="!produtoSelecionado() || quantidade() < 1"
+        [disabled]="!form.controls.produtoSelecionado.value || form.controls.quantidade.invalid"
       >
         <mat-icon>add</mat-icon>
         Adicionar
@@ -136,7 +127,7 @@
       mat-flat-button
       class="botao-criar"
       (click)="criarPedido()"
-      [disabled]="!clienteId() || itens().length === 0 || salvando()"
+      [disabled]="form.controls.clienteId.invalid || itens().length === 0 || salvando()"
     >
       <mat-icon>check</mat-icon>
       {{ salvando() ? 'Criando…' : 'Criar pedido' }}
